@@ -38,6 +38,8 @@ gem "bootstrap"
 gem "jquery-rails"
 gem "sassc-rails"
 gem "devise", "~> 4.9"
+gem "slim-rails"
+gem "cancancan"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -56,6 +58,7 @@ group :development do
 
   # Highlight the fine-grained location where an error occurred [https://github.com/ruby/error_highlight]
   gem "error_highlight", ">= 0.4.0", platforms: [:ruby]
+  gem "pry-rails"
 end
 
 group :test do
