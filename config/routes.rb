@@ -6,12 +6,13 @@ Rails.application.routes.draw do
   devise_for :users
 
   root to: "home#index"
+  
   resources :tests, only: %i(show) do
     get "/do", to: "tests#do", on: :member
   end
-
+  
   namespace :admin do
-    root to: "home#index"
+    root "home#index"
     resources :tests, only: %i(show new create)
   end
 end

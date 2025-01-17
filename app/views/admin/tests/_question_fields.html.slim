@@ -1,0 +1,13 @@
+= test_form.fields_for :questions do |question_form|
+  .question-item.border-bottom.pb-4
+    .question-group
+      label.question-label
+      = question_form.text_area :content, size: '40x2', placeholder: 'Type question here...'
+    .answers
+      = question_form.fields_for :answers do |answer_form|
+        = render 'answer_fields', answer_form: answer_form, question: question_form.object_name
+    .answer-template.d-none
+      = question_form.fields_for :answers do |answer_form|
+        = render 'answer_fields', answer_form: answer_form, question: question_form.object_name
+    .add-answer-btn.btn.btn-sm.text-primary
+      | Add answer

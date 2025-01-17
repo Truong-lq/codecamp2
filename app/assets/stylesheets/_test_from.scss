@@ -1,0 +1,36 @@
+.test-form {
+  .test-group {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .test-label {
+      width: 8rem;
+    }
+  }
+
+  .question-group {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    .question-label {
+      font-weight: 500;
+    }
+  }
+
+  .answers {
+    margin-top: 1rem;
+    display: grid;
+    justify-items: center;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .add-answer-btn {
+    margin-top: 0.5rem;
+    margin-left: 4rem;
+  }
+}

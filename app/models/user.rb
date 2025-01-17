@@ -2,7 +2,7 @@ class User < ApplicationRecord
   after_create :set_admin_if_first_user
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :validatable
 
   def admin?
     admin
