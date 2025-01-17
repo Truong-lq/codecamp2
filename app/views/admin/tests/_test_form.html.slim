@@ -1,0 +1,33 @@
+= form_with model: test, url: admin_tests_path, class: 'mt-4 test-form' do |test_form|
+  / Error messages
+  - @test.errors.any?
+    ul
+      - @test.errors.full_messages.each do |msg|
+        li.text-danger 
+          = msg
+
+  .test-group
+    .test-label
+      | Title
+    = test_form.text_field :title, placeholder: 'Type title here...'
+  
+  .test-group
+    .test-label
+      | Description
+    = test_form.text_area :description, size: '20x2', placeholder: 'Type description here...'
+  
+  / Questions group
+  .d-flex.align-items-center.gap-3
+    h2.fs-5
+      | Questions
+  #questions
+    = render 'question_fields', test_form: test_form 
+  
+  #question-template.d-none
+    = render 'question_fields', test_form: test_form
+  
+  #add-question-btn.btn.btn-outline-primary.btn-sm.mt-4
+      | Add question
+    
+  div.mt-5
+  = test_form.submit 'Create', id:'submit-btn', class: 'btn btn-primary'
