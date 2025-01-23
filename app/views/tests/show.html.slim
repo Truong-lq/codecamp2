@@ -1,2 +1,23 @@
-h1 
-  | Show test user 
+.test-wrap
+  .test-content
+    h1.fs-3.text-center.pb-2 
+      = @test.title
+
+    .test-group
+      span.label
+        | Description
+      p
+        = @test.description
+    .test-group
+      span.label
+        | Total question
+      p
+        = @test.questions.count 
+    .test-group
+      span.label
+        | Time limit
+      p
+        = pluralize Settings.test.time_limit, 'minute' 
+
+    .text-center.mt-3
+      = link_to "Start", do_test_path(@test), class: "btn btn-primary"
