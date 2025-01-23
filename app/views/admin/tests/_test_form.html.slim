@@ -1,8 +1,8 @@
-= form_with model: test, url: admin_tests_path, class: 'mt-4 test-form' do |test_form|
+= form_with model: test, url: test.new_record? ? admin_tests_path : admin_test_path(test), class: 'mt-4 test-form' do |test_form|
   / Error messages
-  - @test.errors.any?
+  - test.errors.any?
     ul
-      - @test.errors.full_messages.each do |msg|
+      - test.errors.full_messages.each do |msg|
         li.text-danger 
           = msg
 
@@ -23,11 +23,8 @@
   #questions
     = render 'question_fields', test_form: test_form 
   
-  #question-template.d-none
-    = render 'question_fields', test_form: test_form
-  
   #add-question-btn.btn.btn-outline-primary.btn-sm.mt-4
       | Add question
     
   div.mt-5
-  = test_form.submit 'Create', id:'submit-btn', class: 'btn btn-primary'
+  = test_form.submit test.new_record? ? 'Create' : 'Update', id:'submit-btn', class: 'btn btn-primary'

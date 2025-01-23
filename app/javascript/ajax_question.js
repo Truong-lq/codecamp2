@@ -7,26 +7,40 @@ function AjaxQuestion() {
     AjaxQuestion().removeAnswer()
     AjaxQuestion().addAnswer()
     AjaxQuestion().submit()
+    AjaxQuestion().initCorrect()
   }
 
   this.addTextToLabel = function () {
-    const questions = $('#questions').children()
+    const questions = $('#questions .question-item')
 
-    questions &&
-      questions.each(function (index) {
-        const question = $(this)
-        const label = question.find('.question-label')
-        const answers = question.find('.answers').children()
+    questions.each(function (index) {
+      const question = $(this)
+      const label = question.find('.question-label')
+      const answers = question.find('.answers .answer-item')
 
-        label.text(`Question ${index + 1}`)
+      label.text(`Question ${index + 1}`)
 
-        answers.each(function (index) {
-          const answer = $(this)
-          const label = answer.find('.answer-label')
+      answers.each(function (index) {
+        const answer = $(this)
+        const label = answer.find('.answer-label')
 
-          label.text(`${index + 1}.`)
-        })
+        label.text(`${index + 1}.`)
       })
+    })
+  }
+
+  this.initCorrect = function () {
+    const questions = $('#questions .question-item')
+
+    questions.each(function () {
+      const answers = $(this).find('.answers .answer-item')
+
+      answers.each(function () {
+        const radio = $(this).find(':radio')
+
+        if (radio.attr('checked') === 'checked') radio.prop('checked', true)
+      })
+    })
   }
 
   this.add = function () {
@@ -34,18 +48,17 @@ function AjaxQuestion() {
     const addBtn = $('#add-question-btn')
     const template = $('#question-template').html()
 
-    addBtn &&
-      addBtn.on('click', function () {
-        const newIndex = $('.question-item').length - 1
-        const newQuestion = template
-          .replace(/\[questions_attributes\]\[\d+\]/g, `[questions_attributes][${newIndex}]`)
-          .replace(/questions_attributes_\d+/g, `questions_attributes_${newIndex}`)
+    addBtn.on('click', function () {
+      const newIndex = $('.question-item').length - 1
+      const newQuestion = template
+        .replace(/\[questions_attributes\]\[\d+\]/g, `[questions_attributes][${newIndex}]`)
+        .replace(/questions_attributes_\d+/g, `questions_attributes_${newIndex}`)
 
-        questions.append(newQuestion)
-        AjaxQuestion().addTextToLabel()
-        AjaxQuestion().removeAnswer()
-        AjaxQuestion().addAnswer()
-      })
+      questions.append(newQuestion)
+      AjaxQuestion().addTextToLabel()
+      AjaxQuestion().removeAnswer()
+      AjaxQuestion().addAnswer()
+    })
   }
 
   this.removeAnswer = function () {
@@ -58,12 +71,14 @@ function AjaxQuestion() {
       answers.each(function () {
         const answer = $(this)
         const removeBtn = answer.find('.remove-answer-btn')
+        const destroyInput = answer.find('._destroy')
 
         removeBtn.on('click', function () {
-          const length = item.find('.answers').children().length
+          const length = item.find('.answers .answer-item').length
 
           if (length > 2) {
-            answer.remove()
+            destroyInput.val(true)
+            answer.replaceWith(destroyInput)
             AjaxQuestion().addTextToLabel()
           }
         })
@@ -81,7 +96,7 @@ function AjaxQuestion() {
       const template = item.find('.answer-template').children().first().prop('outerHTML')
 
       addBtn.off().on('click', function () {
-        const newIndex = answers.children().length
+        const newIndex = answers.find('.answer-item').length
         const newAnswer = template
           .replace(/\[answers_attributes\]\[\d+\]/g, `[answers_attributes][${newIndex}]`)
           .replace(/answers_attributes_\d+/g, `answers_attributes_${newIndex}`)

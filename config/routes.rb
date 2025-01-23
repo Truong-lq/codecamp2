@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   end
   
   namespace :admin do
-    root "home#index"
-    resources :tests, only: %i(show new create)
+    resources :tests, except: :show
   end
 end
