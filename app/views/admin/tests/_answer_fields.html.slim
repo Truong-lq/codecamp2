@@ -2,7 +2,8 @@
   .d-flex.justify-content-between.align-items-center
     .d-flex.align-items-center.gap-2.mb-2          
       .answer-label
-      = radio_button_tag question, answer_form.index
+      = radio_button_tag question, answer_form.index, answer_form.object.is_correct
+      = answer_form.hidden_field :_destroy, value: false, class: '_destroy'
     .remove-answer-btn.text-danger.btn
       | Remove
   = answer_form.text_area :content, size: '30x1', placeholder: 'Type answer here...'

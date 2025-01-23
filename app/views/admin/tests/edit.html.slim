@@ -1,8 +1,9 @@
 h1.fs-3.mt-4.text-center 
-  | Create new test
+  | Edit #{@test.title}
 
 = render 'test_form', test: @test
 
-= form_with model: @test, url: admin_tests_path, class: 'd-none' do |test_form|
+= form_with model: @test_template, url: admin_tests_path, class: 'd-none' do |test_form|
   #question-template.d-none
     = render 'question_fields', test_form: test_form
+  

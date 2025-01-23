@@ -20,7 +20,10 @@
     <%= render "layouts/header" %>
     <div class="container pb-5">
       <% if alert.present? %>
-        <p class="alert alert-danger"><%= alert %></p>
+        <p class="alert alert-danger mt-3"><%= alert %></p>
+      <%end%>
+      <% if notice.present? %>
+        <p class="alert alert-success mt-3"><%= notice %></p>
       <%end%>
       <%= yield %>
     </div>

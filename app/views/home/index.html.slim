@@ -1,4 +1,4 @@
 - if admin?
   .d-flex.justify-content-end.mt-4
     = link_to "Create new test", new_admin_test_path, class: "btn btn-primary"
-    
+= render 'test_list', tests: @tests
