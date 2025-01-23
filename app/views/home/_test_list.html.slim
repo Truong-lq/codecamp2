@@ -3,13 +3,16 @@
       - tests.each do |test|
           .card 
             = link_to image_tag("test-thumb.png", alt: test.title, class: "rounded-top"), 
-                      edit_admin_test_path(test.id), 
+                      test_path(test), 
                       class: "card-img-top"
             .card-body
                 h5.card-title.line-clamp-1
                     = test.title
                 p.card-text.line-clamp-2
                     = test.description
-                .d-flex.gap-4
-                    = link_to "Edit", edit_admin_test_path(test), class: "btn btn-primary"
-                    = link_to "Delete", admin_test_path(test), method: :delete, class: "btn btn-danger"
+                - if admin?
+                  .d-flex.gap-4
+                      = link_to "Edit", edit_admin_test_path(test), class: "btn btn-primary"
+                      = link_to "Delete", admin_test_path(test), method: :delete, class: "btn btn-danger"
+                - else
+                      = link_to "View detail", test_path(test), class: "btn btn-primary"
