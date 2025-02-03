@@ -1,4 +1,5 @@
 class TestsController < ApplicationController
+  before_action :authenticate_user!, only: :do
   before_action :load_test
 
   def show

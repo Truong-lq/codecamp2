@@ -1,5 +1,5 @@
-class Admin::TestsController < ApplicationController
-  before_action :load_test, only: %i(edit update destroy)
+class Admin::TestsController < Admin::AdminController
+  load_and_authorize_resource
 
   def new
     @test = Test.new
@@ -57,9 +57,5 @@ class Admin::TestsController < ApplicationController
         end
       end
     end
-  end
-
-  def load_test
-    @test = Test.find_by id: params[:id]
   end
 end
