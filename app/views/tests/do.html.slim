@@ -13,8 +13,8 @@
         .answer-group
           - @question.answers.each do |answer|
             .answer-row
-              = radio_button_tag @question, answer.id
-              = label_tag "#{@question}_#{answer.id}", answer.content
+              = radio_button_tag @question.id, answer.id, class: "js-answer-input"
+              = label_tag "#{@question.id}_#{answer.id}", answer.content
     
     .navigation-group
         = link_to icon('fa-solid', 'chevron-left', class: 'navigation-icon'), 
