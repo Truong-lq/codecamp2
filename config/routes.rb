@@ -6,11 +6,14 @@ Rails.application.routes.draw do
   devise_for :users
 
   root to: "home#index"
-  
-  resources :tests, only: %i(show) do
-    get "/do", to: "tests#do", on: :member
+
+  resources :tests, only: :show do
+    member do
+      get "/do", to: "tests#do"
+      post "/submit", to: "tests#submit"
+    end
   end
-  
+
   namespace :admin do
     resources :tests, except: :show
   end
