@@ -24,4 +24,7 @@
 
   - if last_idx?
     .text-center
-      = button_tag 'Submit', class: "btn btn-primary"
+      = button_tag 'Submit', 
+                   class: "btn btn-primary", 
+                   id: "js-submit-test-btn", 
+                   data: { question_ids: @test.question_ids, test_id: @test.id }

@@ -1,13 +1,20 @@
 class TestsController < ApplicationController
-  before_action :authenticate_user!, only: :do
   before_action :load_test
+  before_action :authenticate_user!, only: :do
   before_action :load_question, only: :do
 
-  def show
-  end
+  def show; end
 
-  def do
-    # binding.pry
+  def do; end
+
+  def submit
+    result = test_service.calculate_result params[:data]
+
+    if result.save
+      render json: { msg: "Test completed!" }, notice: "Test completed!"
+    else
+      render json: { msg: "Can not save the test. Please try again!" }
+    end
   end
 
   private
@@ -21,7 +28,11 @@ class TestsController < ApplicationController
   def load_question
     @question_idx = params[:question] ? params[:question].to_i - 1 : 0
     @question = @test.questions[@question_idx]
-    
+
     redirect_to do_test_path(@test), alert: "Question not found" if @question.nil?
+  end
+
+  def test_service
+    @test_service ||= TestService.new @test, current_user
   end
 end
