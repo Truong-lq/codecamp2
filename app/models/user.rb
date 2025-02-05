@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :results
+  
   after_create :set_admin_if_first_user
 
   devise :database_authenticatable, :registerable,

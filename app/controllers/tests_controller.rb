@@ -17,6 +17,10 @@ class TestsController < ApplicationController
     end
   end
 
+  def show_results
+    @results = current_user.results.order created_at: :desc
+  end
+
   private
 
   def load_test

@@ -1,7 +1,9 @@
 .test-wrap
   .test-content
-    h1.fs-3.text-center.pb-2 
-      = @test.title
+    .test-header
+      h1.fs-3.text-center.pb-2 
+        = @test.title
+      = link_to 'All result', all_result_test_path(@test), class: "test-result"
 
     .test-group
       span.label
