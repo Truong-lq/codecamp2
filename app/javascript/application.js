@@ -5,3 +5,4 @@ import "popper";
 import "bootstrap";
 
 import "./ajax_question";
+import "./do_test";
