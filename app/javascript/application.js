@@ -6,3 +6,5 @@ import "bootstrap";
 
 import "./ajax_question";
 import "./do_test";
+import "chartkick"
+import "Chart.bundle"
