@@ -6,6 +6,8 @@ class TestService
 
   def create_result(data)
     result = @user.results.build point: 0, test: @test
+    return result if data.blank?
+
     question_ids = data.keys
 
     question_ids.each do |question_id|

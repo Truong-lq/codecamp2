@@ -13,7 +13,7 @@ class TestsController < ApplicationController
     ActiveRecord::Base.transaction do
       result.save!
 
-      current_user.answers << test_service.create_user_answers(params[:data], result)
+      current_user.answers << test_service.create_user_answers(params[:data], result) unless params[:data].blank?
 
       render json: { msg: "Test completed!", result_id: result.id }, status: :ok
     end
