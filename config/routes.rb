@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :tests, except: :show
+    resources :tests, except: :show do
+      resources :results, only: :index
+    end
   end
 end
