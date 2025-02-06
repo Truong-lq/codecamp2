@@ -1,7 +1,10 @@
 .test-wrap
   .test-content
-    h1.fs-3.text-center.pb-2 
-      = @test.title
+    .test-header
+      h1.fs-3.text-center.pb-2 
+        = @test.title
+      - if current_user.present?
+        = link_to 'All result', test_results_path(@test), class: "test-result"
 
     .test-group
       span.label

@@ -1,0 +1,25 @@
+.container
+  h1.test-title 
+    | Result of #{@test.title} 
+  p.text-center.fs-4.mt-3
+    | Total point: #{@result.point} / 10
+
+  .navigation-box
+    - @test.questions.size.times do |index|
+        = link_to index + 1, test_result_path(@test, @result, question: index + 1), class: "navigation-item #{index == @question_idx ? "active" : ''}"
+
+  .question-wrap
+    .question-content
+        h2.question-title
+          | Question #{@question_idx + 1}: #{@question.content}
+        .answer-group
+          - @question.answers.each do |answer|
+            .answer-row
+              = radio_button_tag @question.id, answer.id, answer == @user_answer, disabled: true
+              = label_tag "#{@question.id}_#{answer.id}", answer.content, class: resolve_label_class(answer)
+    
+    .navigation-group
+        = link_to icon('fa-solid', 'chevron-left', class: 'navigation-icon'), 
+                  result_back_url
+        = link_to icon('fa-solid', 'chevron-right', class: 'navigation-icon'), 
+                  result_next_url

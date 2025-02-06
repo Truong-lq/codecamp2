@@ -1,0 +1,21 @@
+- if @results.any?
+  .result-wrap
+    .result-content
+      h1.fs-3.text-center 
+        | Result of #{@test.title}
+
+      - @results.each do |result|
+        = link_to test_result_path(@test, result), class: 'result-group' do
+          .result-row
+            span.label
+              | Finished at
+            p = result.created_at.getlocal("+07:00").strftime '%H:%M %d-%m-%Y'
+          
+          .result-row
+            span.label
+              | Total point
+            p
+              | #{result.point} / 10
+- else 
+  p.result-wrap.text-center.fs-3
+    | No result to show
