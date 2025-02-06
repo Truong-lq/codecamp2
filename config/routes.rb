@@ -11,8 +11,9 @@ Rails.application.routes.draw do
     member do
       get "/do", to: "tests#do"
       post "/submit", to: "tests#submit"
-      get "/all_result", to: "tests#show_results"
     end
+
+    resources :results, only: %i(index show)
   end
 
   namespace :admin do

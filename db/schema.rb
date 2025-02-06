@@ -46,6 +46,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_05_042523) do
   end
 
   create_table "user_answers", force: :cascade do |t|
+    t.integer "result_id", null: false
+    t.integer "test_id", null: false
     t.integer "question_id", null: false
     t.integer "user_id", null: false
     t.integer "answer_id", null: false
@@ -53,6 +55,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_05_042523) do
     t.datetime "updated_at", null: false
     t.index ["answer_id"], name: "index_user_answers_on_answer_id"
     t.index ["question_id"], name: "index_user_answers_on_question_id"
+    t.index ["result_id"], name: "index_user_answers_on_result_id"
+    t.index ["test_id"], name: "index_user_answers_on_test_id"
     t.index ["user_id"], name: "index_user_answers_on_user_id"
   end
 
@@ -71,5 +75,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_05_042523) do
   add_foreign_key "results", "users"
   add_foreign_key "user_answers", "answers"
   add_foreign_key "user_answers", "questions"
+  add_foreign_key "user_answers", "results"
+  add_foreign_key "user_answers", "tests"
   add_foreign_key "user_answers", "users"
 end

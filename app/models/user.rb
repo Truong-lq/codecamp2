@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  has_many :results
+  has_many :results, dependent: :destroy
+  has_many :answers, dependent: :destroy, class_name: UserAnswer.name
   
   after_create :set_admin_if_first_user
 

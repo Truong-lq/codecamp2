@@ -8,17 +8,17 @@ class TestsController < ApplicationController
   def do; end
 
   def submit
-    result = test_service.calculate_result params[:data]
+    result = test_service.create_result params[:data]
 
-    if result.save
-      render json: { msg: "Test completed!" }, notice: "Test completed!"
-    else
-      render json: { msg: "Can not save the test. Please try again!" }
+    ActiveRecord::Base.transaction do
+      result.save!
+
+      current_user.answers << test_service.create_user_answers(params[:data], result)
+
+      render json: { msg: "Test completed!", result_id: result.id }, status: :ok
     end
-  end
-
-  def show_results
-    @results = current_user.results.order created_at: :desc
+  rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved => e
+    render json: { msg: "Can not save the test. Please try again!" }, status: :unprocessable_entity
   end
 
   private

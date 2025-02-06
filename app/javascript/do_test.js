@@ -43,13 +43,16 @@ function DoTest() {
           method: 'POST',
           contentType: 'application/json',
           data: JSON.stringify({ data: data }),
-          success: () => {
+          success: (res) => {
+            questionIds.forEach((questionId) => {
+              localStorage.removeItem(questionId)
+            })
+            window.location.href = `/tests/${testId}/results/${res.result_id}`
+          },
+          error: (err) => {
+            alert(err.responseJSON.msg)
             window.location.href = '/'
           },
-        })
-
-        questionIds.forEach((questionId) => {
-          localStorage.removeItem(questionId)
         })
       }
     })
